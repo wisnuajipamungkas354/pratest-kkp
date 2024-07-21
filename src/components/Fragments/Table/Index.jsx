@@ -5,14 +5,22 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import Button from 'react-bootstrap/Button';
 import { BsSearch } from "react-icons/bs";
 import { BsDownload } from "react-icons/bs";
+import { useState } from 'react';
 import HeaderTable from './HeaderTable';
+import ModalUlasan from '../Modal/Index';
 
 const TableContent = (props) => {
+
     const { colorTextHeader = "dark", children, rows, align = "left" } = props;
+
+    // EventHandler
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
   return (
     <div className='container'>
     <HeaderTable color={colorTextHeader}>{children}</HeaderTable>
@@ -44,7 +52,7 @@ const TableContent = (props) => {
                 <Button type="search" variant="success" size="sm" className='m-1'>
                 <BsSearch />
                 </Button>
-                <Button type="button" variant="primary" size="sm">
+                <Button type="button" variant="primary" size="sm" onClick={handleShow}>
                 <BsDownload />
                 </Button>
             </TableCell>
@@ -53,6 +61,7 @@ const TableContent = (props) => {
         </TableBody>
       </Table>
     </TableContainer>
+    <ModalUlasan show={show} handleClose={handleClose}></ModalUlasan>
     </div>
   );
 }
